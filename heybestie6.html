@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Bestie 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* --- General Styling --- */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif; 
+    background: #ffdde1; 
+    overflow-x: hidden;
+    text-align: center;
+}
+
+/* --- Lock Screen --- */
+#lockScreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #ffdde1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 10;
+}
+
+#lockScreen h1 {
+    color: #ff4d6d; 
+    font-size: 36px;
+    margin-bottom: 5px; 
+    animation: fadeInDown 1s ease-out;
+}
+
+#lockScreen h2 {
+    color: #ff4d6d;
+    margin-bottom: 20px;
+}
+
+#lockScreen input {
+    padding: 12px;
+    border: 2px solid #ff4d6d;
+    border-radius: 8px;
+    font-size: 18px;
+    margin-top: 12px;
+    transition: border-color 0.3s;
+}
+
+#lockScreen button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #ff4d6d;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+/* --- Gift Box --- */
+#giftBox {
+    width: 150px;
+    height: 150px;
+    background: #ff4d6d;
+    margin: 100px auto;
+    position: relative;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    animation: bounce 1.5s infinite;
+}
+
+#giftBox::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: #fff; 
+    border-radius: 50%;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* --- Hidden Content (Letter) --- */
+#content {
+    display: none;
+    padding: 30px;
+    max-width: 700px;
+    margin: 50px auto; 
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    position: relative;
+    text-align: left; 
+    animation: fadeInUp 1s ease-out;
+}
+
+#content h2 {
+    color: #ff4d6d;
+    margin-bottom: 20px;
+    text-align: center; 
+    font-size: 28px;
+}
+
+#content p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #333;
+    white-space: pre-line;
+}
+
+/* Music Player Container - Hidden off-screen */
+#musicPlayer {
+    /* Hide the player completely */
+    position: fixed;
+    top: -9999px;
+    left: -9999px;
+    z-index: -1; 
+    opacity: 0;
+}
+
+#musicPlayer iframe {
+    width: 1px; /* Minimal size */
+    height: 1px;
+}
+
+
+/* --- Secret Button --- */
+#secretButton {
+    display: none;
+    background: linear-gradient(90deg, #ff4d6d, #ff80ab);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    margin-top: 30px;
+    transition: transform 0.2s;
+    animation: pulse 1.5s infinite;
+}
+
+/* --- Second Lock --- */
+#secretLock {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 221, 225, 0.98); 
+    top: 0;
+    left: 0;
+    z-index: 20;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Gallery --- */
+#gallery {
+    display: none;
+    padding: 40px 10px;
+    background: linear-gradient(to bottom right, #ffe0e9, #ffd6e8);
+    min-height: 100vh;
+    text-align: center;
+}
+
+#gallery h2 {
+    color: #ff4d6d;
+    margin-bottom: 40px;
+    font-size: 32px;
+}
+
+.photo {
+    width: 250px; 
+    max-width: 90%;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    margin: 25px;
+    display: inline-block;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s;
+    transform: rotate(-3deg);
+    border: 5px solid white; 
+}
+
+/* --- Floating Hearts --- */
+.heart {
+    position: fixed;
+    color: #ff4d6d;
+    font-size: 28px; 
+    animation: float 6s linear infinite;
+    pointer-events: none; 
+}
+</style>
+</head>
+<body>
+
+<div id="lockScreen">
+    <h1>Hey sweetie 🥰</h1> 
+    <h2>🔒 Enter Password to Unlock</h2>
+    <input type="password" id="password" placeholder="Enter password">
+    <button onclick="unlock()">Unlock</button>
+</div>
+
+<div id="giftBox" onclick="openGift()" style="display:none;"></div>
+
+<div id="content">
+    <h2>Hey Love 💕</h2>
+    <p>
+        Hey love!
+        
+        To start, here's to **seven wonderful years of the greatest
+        friendship**, love. This bond is eternal, and I genuinely feel fortunate to have
+        you as my closest friend, my accomplice, and in numerous ways, my **improved
+        self**. It’s not only because you’ve supported me through it all, regardless of
+        my choices, but because you’ve never allowed me to doubt my beliefs about
+        relationships—that the genuine ones truly endure forever. You mean a great deal
+        to me, dear lady.
+        
+        <br><br>
+        It's been an emotional journey with you, **arguing over the
+        tiniest issues, laughing until we can’t breathe, shedding tears, exchanging
+        secrets**, and embracing all the craziness that defines this connection. I assure
+        you, I will always hold on to this invaluable bond we share. I realize that I
+        subject you to my antics more often than I can remember, but I hope you
+        understand I do it because I can be my most genuine, unfiltered self with you.
+        I might not always have been the greatest friend, but I assure you, I will
+        continue to improve, and I will consistently make the choice to be there for
+        you.
+        
+        <br><br>
+        Regardless of everything, I love you forever, **Billi**. And
+        never forget—amidst each struggle, every joy, and each peaceful instant—you
+        will always have me beside you.
+        
+        <br><br>
+        <b>Your best friend, <br> Suku</b>
+    </p>
+
+    <div id="musicPlayer">
+        <iframe 
+            id="youtubePlayer"
+            width="560" 
+            height="315" 
+            src="https://www.youtube.com/embed/yKc_OiYWOXU?si=n9AA90sRes3pD_lf&autoplay=1&loop=1&playlist=yKc_OiYWOXU&controls=0&mute=0" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    <button id="secretButton" onclick="showSecretLock()">💌 Open Secret Memory Box</button>
+</div>
+
+<div id="secretLock">
+    <h2>🔐 Enter Secret Password</h2>
+    <input type="password" id="secretPassword" placeholder="Enter secret password">
+    <button onclick="unlockSecret()">Open</button>
+</div>
+
+<div id="gallery">
+    <h2>Our Beautiful Memories 💞</h2>
+    <img src="WhatsApp Image 2025-10-04 at 13.32.07_10da0c93.jpg" class="photo">
+    <img src="WhatsApp Image 2025-10-04 at 13.32.07_a2df1583.jpg" class="photo">
+    <img src="WhatsApp Image 2025-10-04 at 13.32.08_110606ec.jpg" class="photo">
+</div>
+
+<script>
+function unlock() {
+    const pass = document.getElementById("password").value;
+    if(pass === "heybestie") {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("giftBox").style.display = "block";
+    } else {
+        alert("Oops! Wrong password. Did you check your usual secret spots? 😉"); 
+    }
+}
+
+function openGift() {
+    document.getElementById("giftBox").style.display = "none";
+    document.getElementById("content").style.display = "block";
+    
+    // Relaunch the YouTube player to trigger autoplay after the user interaction (gift click)
+    const player = document.getElementById('youtubePlayer');
+    const src = player.src;
+    player.src = ''; // Stop and reset the source
+    player.src = src.replace('autoplay=1', 'autoplay=1&mute=0'); // Restart the video unmuted
+    
+    createHearts();
+    window.heartInterval = setInterval(() => {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤";
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => { heart.remove(); }, 6000);
+    }, 500);
+
+    setTimeout(() => {
+        document.getElementById("secretButton").style.display = "inline-block";
+    }, 15000); // button appears after 15 seconds
+}
+
+function showSecretLock() {
+    document.getElementById("secretLock").style.display = "flex";
+}
+
+function unlockSecret() {
+    const secret = document.getElementById("secretPassword").value;
+    if(secret === "iloveyou") {
+        document.getElementById("secretLock").style.display = "none";
+        document.getElementById("content").style.display = "none";
+        document.getElementById("gallery").style.display = "block";
+        
+        if (window.heartInterval) {
+            clearInterval(window.heartInterval);
+        }
+        createHearts(); 
+    } else {
+        alert("Nope, that’s not it 😉 Try the word we always use to end our calls!");
+    }
+}
+
+function createHearts() {
+    if (!window.heartInterval) {
+        window.heartInterval = setInterval(() => {
+            const heart = document.createElement("div");
+            heart.innerHTML = "❤";
+            heart.classList.add("heart");
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }, 500);
+    }
+}
+</script>
+</body>
+</html>
